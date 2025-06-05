@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>电影数据分析</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+		<script src="https://unpkg.com/recharts/umd/Recharts.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<style>
+			.sidebar-item:hover {
+				background-color: rgba(255, 255, 255, 0.1);
+			}
+			/*背景颜色会变为半透明的白色，为用户提供一种视觉反馈，增强交互性*/
+
+			.chart-container {
+				transition: all 0.3s ease;
+			}
+			/*当元素的属性改变时，会有一个平滑的动画效果，而不是突然的变化，增强了页面的流畅性和用户体验。*/
+
+			.chart-container:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			}
+			/*使元素向上移动一点，产生一种浮动的效果*/
+
+			.movie-card {
+				transition: all 0.3s ease;
+			}
+			/*为元素的属性变化添加 0.3 秒的过渡效果，使用 ease 缓动函数*/
+
+			.movie-card:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+			}
+			/*产生一种向上抬起的效果，为用户提供视觉反馈*/
+		</style>
+	</head>
+	<body class="bg-gray-50">
+		<div class="flex h-screen">
+			<div class="w-64 bg-gray-800 text-white">
+				<div class="p-4">
+					<h1 class="text-2xl font-bold mb-8">电影数据分析</h1>
+					<nav class="space-y-2">
+						<a href="#overview" class="sidebar-item block py-2 px-4 rounded transition-colors duration-200">
+							📊 总体概览
+						</a>
+						<a href="#popular" class="sidebar-item block py-2 px-4 rounded transition-colors duration-200">
+							🔥 最受欢迎电影
+						</a>
+						<a href="#gender" class="sidebar-item block py-2 px-4 rounded transition-colors duration-200">
+							👥 性别评分分析
+						</a>
+						<a href="#age" class="sidebar-item block py-2 px-4 rounded transition-colors duration-200">
+							👴 年龄段评分
+						</a>
+						<a href="#top-rated"
+							class="sidebar-item block py-2 px-4 rounded transition-colors duration-200">
+							⭐ 最高评分电影
+						</a>
+						<a href="#yearly" class="sidebar-item block py-2 px-4 rounded transition-colors duration-200">
+							📅 年度最佳
+						</a>
+						<a href="#comedy" class="sidebar-item block py-2 px-4 rounded transition-colors duration-200">
+							😄 喜剧片排行
+						</a>
+						<a href="#genre-top"
+							class="sidebar-item block py-2 px-4 rounded transition-colors duration-200">
+							🎭 类型最佳
+						</a>
+					</nav>
+				</div>
+			</div>
+
+			<div class="flex-1 overflow-auto">
+				<div class="p-8">
+					<section id="overview" class="mb-12">
+						<h2 class="text-2xl font-bold mb-6">总体概览</h2>
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+							<div class="bg-white p-6 rounded-lg shadow-md">
+								<div class="flex items-center">
+									<div class="p-3 rounded-full bg-blue-100 text-blue-500">
+										<i class="fas fa-film text-2xl"></i>
+									</div>
+									<div class="ml-4">
+										<p class="text-gray-500 text-sm">电影总数</p>
+										<p class="text-2xl font-bold">209,171</p>
+									</div>
+								</div>
+								<div class="mt-4">
+									<p class="text-sm text-gray-500">包含各类型电影</p>
+								</div>
+							</div>
+							<div class="bg-white p-6 rounded-lg shadow-md">
+								<div class="flex items-center">
+									<div class="p-3 rounded-full bg-green-100 text-green-500">
+										<i class="fas fa-users text-2xl"></i>
+									</div>
+									<div class="ml-4">
+										<p class="text-gray-500 text-sm">用户总数</p>
+										<p class="text-2xl font-bold">943</p>
+									</div>
+								</div>
+								<div class="mt-4">
+									<p class="text-sm text-gray-500">活跃用户数量</p>
+								</div>
+							</div>
+							<div class="bg-white p-6 rounded-lg shadow-md">
+								<div class="flex items-center">
+									<div class="p-3 rounded-full bg-yellow-100 text-yellow-500">
+										<i class="fas fa-star text-2xl"></i>
+									</div>
+									<div class="ml-4">
+										<p class="text-gray-500 text-sm">评分总数</p>
+										<p class="text-2xl font-bold">25,000,096</p>
+									</div>
+								</div>
+								<div class="mt-4">
+									<p class="text-sm text-gray-500">用户评分数量</p>
+								</div>
+							</div>
+							<div class="bg-white p-6 rounded-lg shadow-md">
+								<div class="flex items-center">
+									<div class="p-3 rounded-full bg-purple-100 text-purple-500">
+										<i class="fas fa-chart-line text-2xl"></i>
+									</div>
+									<div class="ml-4">
+										<p class="text-gray-500 text-sm">平均评分</p>
+										<p class="text-2xl font-bold">4.2</p>
+									</div>
+								</div>
+								<div class="mt-4">
+									<p class="text-sm text-gray-500">总体评分水平</p>
+								</div>
+							</div>
+						</div>
+
+						<section id="popular" class="mt-20 mb-12">
+							<h2 class="text-2xl font-bold mb-6">评分次数最多的电影 Top 10</h2>
+							<div class="bg-white rounded-lg shadow-lg p-6">
+							    <h2 class="text-xl font-semibold mb-4">评分次数最多的电影</h2>
+							    {{ charts.rating_counts | safe }}
+							</div>
+						</section>
+
+						<!-- Gender Analysis Section -->
+						<section id="gender" class="mb-12">
+							<h2 class="text-2xl font-bold mb-6">不同性别最喜爱的电影 Top 10</h2>
+							<div class="bg-white rounded-lg shadow-lg p-6">
+							    <h2 class="text-xl font-semibold mb-4">性别评分分析</h2>
+							    {{ charts.gender_ratings | safe }}
+							</div>
+						</section>
+
+						<section id="age" class="mb-12">
+							<h2 class="text-2xl font-bold mb-6">电影在不同年龄段的评分分布</h2>
+							<div class="bg-white rounded-lg shadow-lg p-6">
+							    <h2 class="text-xl font-semibold mb-4">年龄段评分分析</h2>
+							    {{ charts.age_ratings | safe }}
+							</div>
+						</section>
+
+						<section id="top-rated" class="mb-12">
+							<h2 class="text-2xl font-bold mb-6">评分最高的电影 Top 10</h2>
+							<div class="bg-white rounded-lg shadow-lg p-6">
+							    <h2 class="text-xl font-semibold mb-4">评分最高的电影</h2>
+							    {{ charts.top_rated | safe }}
+							</div>
+						</section>
+
+						<section id="yearly" class="mb-12">
+							<h2 class="text-2xl font-bold mb-6">最佳年份电影 Top 10</h2>
+							<div class="bg-white rounded-lg shadow-lg p-6">
+							    <h2 class="text-xl font-semibold mb-4">最佳年份电影</h2>
+							    {{ charts.best_year | safe }}
+							</div>
+						</section>
+
+						<section id="comedy" class="mb-12">
+							<h2 class="text-2xl font-bold mb-6">最佳喜剧电影 Top 10</h2>
+							<div class="bg-white rounded-lg shadow-lg p-6">
+							    <h2 class="text-xl font-semibold mb-4">最佳喜剧电影</h2>
+							    {{ charts.top_comedy | safe }}
+							</div>
+						</section>
+
+						<section id="genre-top" class="mb-12">
+							<h2 class="text-2xl font-bold mb-6">各类型最佳电影 Top 5</h2>
+							<div class="bg-white rounded-lg shadow-lg p-6 md:col-span-2">
+							    <h2 class="text-xl font-semibold mb-4">电影类型评分分析</h2>
+							    {{ charts.top_by_genre | safe }}
+							</div>
+						</section>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
